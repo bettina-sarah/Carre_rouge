@@ -3,6 +3,7 @@ from Modele import *
 from Controleur import *
 
 class Vue():
-    def __init__(self, parentcontroleur):
-        self.parent = parentcontroleur
+    def __init__(self, controleur, modele):
+        self.controleur = controleur
+        self.modele = modele
         self.root = Tk()
