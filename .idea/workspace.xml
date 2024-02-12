@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3463edf6-b66c-404d-85db-f69fe76f4c3e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carre_rouge/Controleur.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Carre_rouge/CarreRouge.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/CarreRouge.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/Modele.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Modele.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Carre_rouge/Pion.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Pion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/Vue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Vue.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/main.py" afterDir="false" />
     </list>
@@ -118,8 +120,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.main (1)" />
-        <item itemvalue="Python.Vue" />
         <item itemvalue="Python.main" />
+        <item itemvalue="Python.Vue" />
         <item itemvalue="Python.main" />
       </list>
     </recent_temporary>

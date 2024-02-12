@@ -26,6 +26,7 @@ class Vue():
         # self.isActive = False
         self.creer_canvas()
         self.creer_boutons()
+        self.creer_carre_rouge()
 
     def creer_canvas(self):
 
@@ -48,6 +49,19 @@ class Vue():
 
         self.menu_principal.pack()
         self.aire_jeu.pack()
+
+    def creer_carre_rouge(self):
+
+        self.aire_jeu.create_rectangle(self.modele.carre.posX, self.modele.carre.posY, self.modele.carre.posX+self.modele.carre.taille,
+                                       self.modele.carre.posY+self.modele.carre.taille, fill=self.modele.carre.couleur,
+                                       tags=("carre_rouge",))
+        self.aire_jeu.tag_bind("carre_rouge", "<B1-Motion>", self.bouger_carre_rouge)
+
+    def bouger_carre_rouge(self, evt):
+        self.controleur.changer_position((evt.x, evt.y))
+
+
+
 
 
     def creer_boutons(self):
