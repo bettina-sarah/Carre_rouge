@@ -11,19 +11,55 @@ class Vue():
         self.modele = modele
         self.root = Tk()
 
+        self.menu_principal = None
+        self.aire_jeu = None
+        self.leaderboard = None
+        self.quitter = None
+        self.session = None
+
+        self.nouvelle_partie_btn = None
+        self.leaderboard_btn = None
+        self.quitter_btn = None
+
+        self.activeCanvas = None
+
+        # self.isActive = False
+        self.creer_canvas()
+        self.creer_boutons()
+
+    def creer_canvas(self):
+
+        # menu principal
         self.menu_principal = Canvas(self.root, height=100, width=self.modele.largeur + (self.modele.border_width * 2),
                                      bg="pink", )
-        self.menu_principal.pack()
-
+        # aire de jeu
         self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
                              bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+
+        # leaderboard
+        self.leaderboard = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
+                                  bg="blue", highlightbackground='black', highlightthickness=self.modele.border_width)
+        # session
+        self.session = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
+                                  bg="green", highlightbackground='black', highlightthickness=self.modele.border_width)
+        # canvas quitter
+        self.quitter = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
+                                  bg="purple", highlightbackground='black', highlightthickness=self.modele.border_width)
+
+        self.menu_principal.pack()
         self.aire_jeu.pack()
-        self.isActive = False
-        # 50 epaisseur
-        # frame = Frame(self.root, height=self.modele.hauteur, width=self.modele.hauteur, bg="seashell2")
-        # frame.pack()
-        # frame1 = Frame(frame, height=200, width=200, bg="red")
-        # frame1.pack()
+
+
+    def creer_boutons(self):
+        # bouton leaderBoard
+        self.leaderboard_btn = Button(self.menu_principal, text="Leaderboard", command=self.toggle_leaderboard)
+        self.leaderboard_btn.pack()
+        # bouton quitter
+        self.quitter_btn = Button(self.menu_principal, text="Quitter", command=self.activer_menu_quitter)
+        self.quitter_btn.pack()
+        # bouton nouvelle partie
+        self.nouvelle_partie_btn = Button(self.menu_principal, text="Nouvelle Partie", command=self.controleur.commencer_partie)
+        self.nouvelle_partie_btn.pack()
 
     def active_menu_demarrage(self):
         if self.isActive:
@@ -33,11 +69,31 @@ class Vue():
             pass
         pass
 
-    def activer_leaderboard(self):
-        # + bouton effacer, retour
-        if self.isActive:
-            pass
-        pass
+    def toggle_leaderboard(self):
+        # toggle le canevas du leaderboard
+        if not self.leaderboard.winfo_ismapped():
+            self.aire_jeu.pack_forget()
+            self.leaderboard.pack()
+            self.leaderboard_btn["text"] = "Retour"
+        else:
+            self.aire_jeu.pack()
+            self.leaderboard.pack_forget()
+            self.leaderboard_btn["text"] = "Leaderboard"
+
+    # def toggle_session(self):
+    #     # toggle le canevas du leaderboard
+    #     if not self.leaderboard.winfo_ismapped():
+    #         self.activeCanvas.pack_forget()
+    #         self.leaderboard.pack()
+    #         self.leaderboard_btn["text"] = "Retour"
+    #     else:
+    #         self.aire_jeu.pack()
+    #         self.leaderboard.pack_forget()
+    #         self.leaderboard_btn["text"] = "Leaderboard"
+
+
+
+
 
     def afficher_fenetre_principale(self):
 
