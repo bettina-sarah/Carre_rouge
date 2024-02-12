@@ -1,5 +1,5 @@
 from CarreRouge import *
-from Pion import *
+from RectangleBleu import *
 
 
 class Modele:

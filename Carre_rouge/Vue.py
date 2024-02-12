@@ -2,7 +2,7 @@ from tkinter import *
 from Modele import *
 # from Controleur import *
 from CarreRouge import *
-from Pion import *
+from RectangleBleu import *
 
 
 class Vue():
@@ -10,19 +10,15 @@ class Vue():
         self.controleur = controleur
         self.modele = modele
         self.root = Tk()
-
         self.menu_principal = None
         self.aire_jeu = None
         self.leaderboard = None
         self.quitter = None
         self.session = None
-
         self.nouvelle_partie_btn = None
         self.leaderboard_btn = None
         self.quitter_btn = None
-
         self.activeCanvas = None
-
         # self.isActive = False
         self.creer_canvas()
         self.creer_boutons()
@@ -36,6 +32,7 @@ class Vue():
         # aire de jeu
         self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
                              bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+        self.aire_jeu.bind("<Button>", self.activer)
 
         # leaderboard
         self.leaderboard = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
@@ -55,13 +52,41 @@ class Vue():
         self.aire_jeu.create_rectangle(self.modele.carre.posX, self.modele.carre.posY, self.modele.carre.posX+self.modele.carre.taille,
                                        self.modele.carre.posY+self.modele.carre.taille, fill=self.modele.carre.couleur,
                                        tags=("carre_rouge",))
-        self.aire_jeu.tag_bind("carre_rouge", "<B1-Motion>", self.bouger_carre_rouge)
+
+    def activer(self, evt):
+
+        # bind lié canvas au evenenemtn du bouton souris... canvas find withtag: trouve element ou on click avec le
+        # tag "current" (python donne au chose qui est en sous du souris)
+
+        mestags = self.aire_jeu.gettags("current")
+        if "carre_rouge" in mestags:
+            self.aire_jeu.bind("<Motion>", self.bouger_carre_rouge)
+            self.aire_jeu.bind("<ButtonRelease>", self.desactiver)
+
+    def desactiver(self, evt):
+        self.aire_jeu.unbind("<Motion>")
+        self.aire_jeu.unbind("<ButtonRelease>")
+
 
     def bouger_carre_rouge(self, evt):
         self.controleur.changer_position((evt.x, evt.y))
 
+    def animer(self):
+        self.controleur.animer_jeu()
+        print("animer-vue")
 
-
+    def afficher_blocs(self):
+        # chaque button, bloc se crée, pi on redessine tt a chaque button, on efface les vieux
+        # delete au depart
+        self.aire_jeu.delete("all")
+        # for i in self.modele.blocs:
+        #     # creer rectangle: 2 paire de points - 1ere, xy, 2eme: x+taille, y+taille
+        #     # tags = tuple () - pas liste, on peut pas modifier
+        #     # (haha,) = tuple have to put , so python considers it a tuple - i.posX, i.posY
+        #     self.canvas.create_rectangle(i.posX, i.posY,
+        #                                  i.posX + i.taille, i.posY + i.taille, fill=i.couleur,
+        #                                  tags=("bloc",))
+        self.creer_carre_rouge()
 
 
     def creer_boutons(self):

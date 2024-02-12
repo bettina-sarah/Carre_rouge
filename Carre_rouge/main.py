@@ -1,17 +1,16 @@
-import Vue as vue
+import Vue as v
 import Modele as mod
 
 class Controleur():
     def __init__(self):
         self.modele = mod.Modele(self)
-        self.vue = vue.Vue(self, self.modele)
-        self.vue.root.mainloop()
+        self.vue = v.Vue(self, self.modele)
         self.commencer_partie()
+        self.vue.root.mainloop()
 
 
     def commencer_partie(self):
-        #pions & carré position initiale, reset infos
-        pass
+        self.animer_jeu()
 
     def terminer_partie(self):
         pass
@@ -27,10 +26,8 @@ class Controleur():
         pass
 
     def animer_jeu(self):
-        self.modele.deplacer_pions()
-        # self.vue.afficher_pions()
-        self.vue.root.after(50, self.animer_jeu)  # recurser overflow si on met ()
-        pass
+        self.vue.afficher_blocs()
+        self.vue.root.after(50, self.animer_jeu)
 
     def changer_position(self, new_position):
         self.modele.changer_position(new_position)

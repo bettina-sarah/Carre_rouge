@@ -1,6 +1,6 @@
 import random
 from helper import Helper
-class Pion():
+class RectangleBleu():
     def __init__(self, modele, taille, posX, posY):
         self.parent = modele
         self.taille = taille
