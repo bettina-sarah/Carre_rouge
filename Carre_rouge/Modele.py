@@ -1,20 +1,18 @@
-from Controleur import *
-from Vue import *
-
 from CarreRouge import *
 from Pion import *
 
 
-class Modele():
+class Modele:
     def __init__(self, controleur):
         self.controleur = controleur
         self.hauteur = 450
         self.largeur = 450
         self.pions = []
-        self.carre = CarreRouge()
+        self.carre = CarreRouge(self)
 
     def obtenir_leaderboard(self):
         # return tab results [] - fichier.csv (nom de session)
+        # Trier?
         pass
 
     def creer_pions(self):

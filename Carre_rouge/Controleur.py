@@ -1,5 +1,5 @@
 from Carre_rouge.Vue import Vue
-from Modele import *
+from Modele import Modele
 
 class Controleur():
     def __init__(self):

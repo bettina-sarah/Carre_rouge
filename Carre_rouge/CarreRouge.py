@@ -1,5 +1,3 @@
-from Modele import Modele as modele
-from Vue import *
 class CarreRouge():
     def __init__(self, modele):
         self.parent = modele
