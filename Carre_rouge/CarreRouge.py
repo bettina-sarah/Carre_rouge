@@ -1,13 +1,13 @@
 class CarreRouge():
     def __init__(self, modele):
         self.parent = modele
-        self.taille = 30 # ? a modifier
-        self.posX = 225
-        self.posY = 225
-        pass
+        self.taille = 40 # ? a modifier
+        self.posX = self.parent.largeur/2
+        self.posY = self.parent.hauteur/2
+        self.couleur = "red"
 
-    def deplacer(self, evt):
-        # binder au canvas de l'aire de jeu,
-        # utilise l'event pour déterminer la position du curseur et si
-        # le joueur déplace le carré
-        pass
+
+    def changer_position(self, new_position):
+        self.posX, self.posY = new_position
+        print("nouvelle:", self.posX, self.posY)
+

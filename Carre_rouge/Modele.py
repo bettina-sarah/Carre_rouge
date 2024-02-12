@@ -11,6 +11,9 @@ class Modele:
         self.pions = []
         self.carre = CarreRouge(self)
 
+    def changer_position(self, new_position):
+        self.carre.changer_position(new_position)
+
     def obtenir_leaderboard(self):
         # return tab results [] - fichier.csv (nom de session)
         # Trier?

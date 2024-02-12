@@ -13,9 +13,6 @@ class Pion():
         self.destinationY = None
         pass
 
-    def deplacer(self):
-        pass
-
     def trouver_destination(self):
         # profs:
         self.destinationX = random.randrange(self.parent.largeur)

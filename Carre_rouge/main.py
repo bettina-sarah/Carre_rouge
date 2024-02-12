@@ -32,5 +32,8 @@ class Controleur():
         self.vue.root.after(50, self.animer_jeu)  # recurser overflow si on met ()
         pass
 
+    def changer_position(self, new_position):
+        self.modele.changer_position(new_position)
+
 if __name__ == "__main__":
     c = Controleur()
