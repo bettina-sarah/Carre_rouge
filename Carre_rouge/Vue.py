@@ -10,9 +10,14 @@ class Vue():
         self.controleur = controleur
         self.modele = modele
         self.root = Tk()
-        self.canvas = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur, borderwidth=50,
-                             bg="black")
-        self.canvas.pack()
+
+        self.menu_principal = Canvas(self.root, height=100, width=self.modele.largeur + (self.modele.border_width * 2),
+                                     bg="pink", )
+        self.menu_principal.pack()
+
+        self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
+                             bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+        self.aire_jeu.pack()
         self.isActive = False
         # 50 epaisseur
         # frame = Frame(self.root, height=self.modele.hauteur, width=self.modele.hauteur, bg="seashell2")

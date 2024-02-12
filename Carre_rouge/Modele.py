@@ -5,6 +5,7 @@ from Pion import *
 class Modele:
     def __init__(self, controleur):
         self.controleur = controleur
+        self.border_width = 50
         self.hauteur = 450
         self.largeur = 450
         self.pions = []
