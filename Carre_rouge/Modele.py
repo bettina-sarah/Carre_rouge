@@ -1,5 +1,6 @@
 from CarreRouge import *
 from RectangleBleu import *
+from datetime import datetime
 
 
 class Modele:
@@ -8,8 +9,10 @@ class Modele:
         self.border_width = 50
         self.hauteur = 450
         self.largeur = 450
-        self.pions = []
-        self.carre = CarreRouge(self)
+        self.rectangles = []
+        self.carre = None
+        self.jeu_en_cours = False
+        self.temps_debut = None
 
     def changer_position(self, new_position):
         self.carre.changer_position(new_position)
@@ -20,13 +23,17 @@ class Modele:
         pass
 
     def creer_pions(self):
-        # 4 pions
+        self.carre = CarreRouge(self)
+        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100,  0.785398, 5))
+        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, 0.785398, -5))
+        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, 0.785398, 5))
+        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 0.785398, -5))
         # self.pions.append()
         pass
 
-    def deplacer_pions(self):
+    def deplacer_rectangles(self):
         # dans les pions a place?
-        for pion in self.pions:
+        for pion in self.rectangles:
             pion.deplacer()
         pass
 
@@ -36,6 +43,13 @@ class Modele:
 
     def verifier_collision(self):
         pass
+
+    def commencer_partie(self):
+        self.jeu_en_cours = True
+        self.temps_debut = datetime.now().time()
+        # minute = self.temps_debut.minute
+        # seconde = self.temps_debut.second
+        # micro = self.temps_debut.microsecond
 
 
 

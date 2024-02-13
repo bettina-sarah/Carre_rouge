@@ -10,5 +10,5 @@ class CarreRouge():
     def changer_position(self, new_position):
         x, y = new_position
         self.posX, self.posY = x-self.taille/2, y-self.taille/2
-        print("nouvelle:", self.posX, self.posY)
+        #print("nouvelle:", self.posX, self.posY)
 

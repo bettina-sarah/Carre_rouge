@@ -22,7 +22,7 @@ class Vue():
         # self.isActive = False
         self.creer_canvas()
         self.creer_boutons()
-        self.creer_carre_rouge()
+        #self.creer_carre_rouge()
 
     def creer_canvas(self):
 
@@ -63,6 +63,9 @@ class Vue():
             self.aire_jeu.bind("<Motion>", self.bouger_carre_rouge)
             self.aire_jeu.bind("<ButtonRelease>", self.desactiver)
 
+        if not self.modele.jeu_en_cours:
+            self.controleur.commencer_partie()
+
     def desactiver(self, evt):
         self.aire_jeu.unbind("<Motion>")
         self.aire_jeu.unbind("<ButtonRelease>")
@@ -79,13 +82,15 @@ class Vue():
         # chaque button, bloc se crée, pi on redessine tt a chaque button, on efface les vieux
         # delete au depart
         self.aire_jeu.delete("all")
-        # for i in self.modele.blocs:
-        #     # creer rectangle: 2 paire de points - 1ere, xy, 2eme: x+taille, y+taille
-        #     # tags = tuple () - pas liste, on peut pas modifier
-        #     # (haha,) = tuple have to put , so python considers it a tuple - i.posX, i.posY
-        #     self.canvas.create_rectangle(i.posX, i.posY,
-        #                                  i.posX + i.taille, i.posY + i.taille, fill=i.couleur,
-        #                                  tags=("bloc",))
+        for i in self.modele.rectangles:
+            # creer rectangle: 2 paire de points - 1ere, xy, 2eme: x+taille, y+taille
+            # tags = tuple () - pas liste, on peut pas modifier
+            # (haha,) = tuple have to put , so python considers it a tuple - i.posX, i.posY
+            self.aire_jeu.create_rectangle(i.posX, i.posY,
+                                         i.posX + i.largeur, i.posY + i.hauteur, fill=i.couleur,
+                                         tags=("bloc",))
+            print("new pos: ", i.posX, ", ", i.posY)
+
         self.creer_carre_rouge()
 
 
@@ -97,8 +102,12 @@ class Vue():
         self.quitter_btn = Button(self.menu_principal, text="Quitter", command=self.activer_menu_quitter)
         self.quitter_btn.pack()
         # bouton nouvelle partie
-        self.nouvelle_partie_btn = Button(self.menu_principal, text="Nouvelle Partie", command=self.controleur.commencer_partie)
+        self.nouvelle_partie_btn = Button(self.menu_principal, text="Nouvelle Partie", command=self.nouvelle_partie)
         self.nouvelle_partie_btn.pack()
+
+    def nouvelle_partie(self):
+        self.aire_jeu.delete("all")
+        self.controleur.nouvelle_partie()
 
     def active_menu_demarrage(self):
         if self.isActive:
