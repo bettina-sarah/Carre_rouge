@@ -14,7 +14,16 @@ class RectangleBleu():
         self.angle = 0.785398
         self.destinationX = None
         self.destinationY = None
-        print("New rect")
+
+        self.dictio_coins = {"haut-gauche": [self.posX, self.posY],
+                             "haut-droit": [self.posX+self.largeur, self.posY],
+                             "bas-gauche": [self.posX, self.posY+self.hauteur],
+                             "bas-droit": [self.posX+self.largeur, self.posX+self.hauteur],
+                             }
+        print("Coin haut-gauche", self.dictio_coins["haut-gauche"])
+        print("Coin haut-droit", self.dictio_coins["haut-droit"])
+        print("Coin bas-gauche", self.dictio_coins["bas-gauche"])
+        print("Coin bas-droit", self.dictio_coins["bas-droit"])
 
 
     def deplacer(self):
