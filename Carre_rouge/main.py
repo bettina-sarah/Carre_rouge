@@ -32,7 +32,6 @@ class Controleur():
     def creer_partie(self):
         # temps debut
         self.modele.reset_position()
-        pass
 
     def animer_jeu(self):
         self.modele.deplacer_rectangles()
