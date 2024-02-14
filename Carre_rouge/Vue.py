@@ -27,10 +27,16 @@ class Vue():
         # menu principal
         self.menu_principal = Canvas(self.root, height=100, width=self.modele.largeur + (self.modele.border_width * 2),
                                      bg="pink", )
+
+
+
         # aire de jeu
         self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
                              bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
         self.aire_jeu.bind("<Button>", self.activer)
+
+        # self.nom_session = Label(self.aire_jeu, height=50, width=50, bg="green")
+        # self.nom_session.grid()
 
         # leaderboard
         self.leaderboard = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,

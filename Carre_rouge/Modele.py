@@ -1,6 +1,7 @@
 from CarreRouge import *
 from RectangleBleu import *
-from datetime import datetime
+from datetime import datetime, timedelta
+import csv
 
 
 class Modele:
@@ -13,25 +14,22 @@ class Modele:
         self.carre = None
         self.jeu_en_cours = False
         self.temps_debut = None
+        self.joueur = "Frank"
+        self.difficulte = "facile"
+        self.leaderboard = []
+        self.csv_file_path = "scores.csv"
 
     def commencer_partie(self):
         self.jeu_en_cours = True
-        self.temps_debut = datetime.now().time()
-        # minute = self.temps_debut.minute
-        # seconde = self.temps_debut.second
-        # micro = self.temps_debut.microsecond
-
-    def obtenir_leaderboard(self):
-        # return tab results [] - fichier.csv (nom de session)
-        # Trier?
-        pass
+        self.temps_debut = datetime.now()
+        # self.temps_debut.strftime("%M:%S.%f")[:-3]
 
     def creer_pions(self):
         self.carre = CarreRouge(self)
         self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4, "red"))
         self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4, "green"))
-        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4,-4, "yellow"))
-        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 4,-4))
+        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4, -4, "yellow"))
+        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 4, -4))
 
     def deplacer_rectangles(self):
         # dans les pions a place?
@@ -43,7 +41,6 @@ class Modele:
 
     def verifier_collisions(self):
         return self.collision_bordure() or self.collision_rectangle()
-
 
     def collision_bordure(self):
         if self.carre.posX < self.border_width or self.carre.posX + self.carre.taille > self.largeur + self.border_width:
@@ -66,10 +63,42 @@ class Modele:
             rect_y3 = rectangle.posY
             rect_y4 = rectangle.posY + rectangle.hauteur
             if carre_x2 < rect_x3 or rect_x4 < carre_x1 or carre_y2 < rect_y3 or rect_y4 < carre_y1:
-                compteur_collision+=1
+                compteur_collision += 1
 
         if compteur_collision == 4:
             return False
         return True
 
+    def terminer_partie(self):
+        self.jeu_en_cours = False
+        self.temps_fin = datetime.now()
+        temps_ecoule = self.temps_fin - self.temps_debut
+        self.update_fichier(temps_ecoule)
 
+    def update_fichier(self, temps_ecoule):
+
+        new_row = [self.joueur, temps_ecoule.total_seconds(), datetime.now().date(), self.difficulte]
+        # string = self.joueur + "," + str(temps_ecoule.total_seconds())+","+str(datetime.now().date()) + "," + self.difficulte
+        # print(string)
+
+        with open(self.csv_file_path, mode='a', newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+
+            # Write the new row
+            csv_writer.writerow(new_row)
+
+    def obtenir_leaderboard(self):
+        # with open(self.csv_file_path, mode='r') as csv_file:
+        #     csv_reader = csv.DictReader(csv_file)
+        #
+        #     for row in csv_reader:
+        #         #if row[0] == self.joueur:
+        #         self.leaderboard.append({
+        #             'Nom': row[0],
+        #             'Score': (row[1]),
+        #             'Date': (row[2]),
+        #             'Difficulté': row[3]
+        #         })
+        # # Sort the leaderboard_data list based on the 'Score' in descending order
+        # self.leaderboard.sort(key=lambda x: x['Score'], reverse=True)
+        pass
