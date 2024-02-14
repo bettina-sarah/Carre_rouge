@@ -1,5 +1,7 @@
 import random
 from helper import Helper as hp
+
+
 class RectangleBleu():
     def __init__(self, modele, largeur, hauteur, posX, posY, vitesseX, vitesseY, couleur="blue"):
         self.parent = modele
@@ -15,36 +17,55 @@ class RectangleBleu():
         self.destinationX = None
         self.destinationY = None
 
-        self.dictio_coins = {"haut-gauche": [self.posX, self.posY],
-                             "haut-droit": [self.posX+self.largeur, self.posY],
-                             "bas-gauche": [self.posX, self.posY+self.hauteur],
-                             "bas-droit": [self.posX+self.largeur, self.posX+self.hauteur],
+        self.coins = {"haut-gauche": [self.posX, self.posY],
+                             "haut-droit": [self.posX + self.largeur, self.posY],
+                             "bas-gauche": [self.posX, self.posY + self.hauteur],
+                             "bas-droit": [self.posX + self.largeur, self.posY+ self.hauteur],
                              }
-        print("Coin haut-gauche", self.dictio_coins["haut-gauche"])
-        print("Coin haut-droit", self.dictio_coins["haut-droit"])
-        print("Coin bas-gauche", self.dictio_coins["bas-gauche"])
-        print("Coin bas-droit", self.dictio_coins["bas-droit"])
 
+        print("Coin haut-gauche", self.coins["haut-gauche"])
+        print("Coin haut-droit", self.coins["haut-droit"])
+        print("Coin bas-gauche", self.coins["bas-gauche"])
+        print("Coin bas-droit", self.coins["bas-droit"])
 
-# def deplacer_angle(self):
-        # self.angle = hp.calcAngle(self.posX, self.posY,self.parent.largeur/2, self.parent.largeur/2)
-        # self.posX, self.posY = hp.getAngledPoint(self.angle, self.vitesse, self.posX, self.posY)
-        # print("new pos: ",self.posX, ", ",self.posY)
+    # def deplacer_angle(self):
+    # self.angle = hp.calcAngle(self.posX, self.posY,self.parent.largeur/2, self.parent.largeur/2)
+    # self.posX, self.posY = hp.getAngledPoint(self.angle, self.vitesse, self.posX, self.posY)
+    # print("new pos: ",self.posX, ", ",self.posY)
 
     def deplacer(self):
 
+        self.collision_mur()
         if self.vitesseX < 0:
-            self.vitesseX += self.acceleration*-1
+            self.vitesseX += self.acceleration * -1
         else:
-            self.vitesseX += self.acceleration*1
+            self.vitesseX += self.acceleration
 
         if self.vitesseY < 0:
-            self.vitesseY += self.acceleration*-1
+            self.vitesseY += self.acceleration * -1
         else:
-            self.vitesseY += self.acceleration*1
+            self.vitesseY += self.acceleration
+
         self.posX += self.vitesseX
         self.posY += self.vitesseY
 
+    def collision_mur(self):
+        print("coord dict:",self.coins["haut-gauche"][0])
+        print("coord dict:",self.coins["bas-droit"][0])
+        print("coord dict:", self.coins["haut-gauche"][1])
+        print("coord dict:", self.coins["bas-droit"][1])
+
+        if self.posX < 0 or self.posX + self.largeur > self.parent.largeur + self.parent.border_width*2:
+
+            self.vitesseX*=-1
+            print("frappemur")
+
+        if self.posY < 0 or self.posY + self.hauteur > self.parent.hauteur+self.parent.border_width*2:
+            self.vitesseY*=-1
+
+
+    def acceleration(self):
+        pass
 
 
     # def trouver_destination(self):

@@ -8,7 +8,7 @@ class CarreRouge():
         self.dictio_coins = {"haut-gauche": [self.posX, self.posY],
                              "haut-droit": [self.posX+self.taille, self.posY],
                              "bas-gauche": [self.posX, self.posY+self.taille],
-                             "bas-droit": [self.posX+self.taille, self.posX+self.taille],
+                             "bas-droit": [self.posX+self.taille, self.posY+self.taille],
                              }
 
         print("Coin haut-gauche", self.dictio_coins["haut-gauche"])
