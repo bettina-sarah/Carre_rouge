@@ -42,9 +42,34 @@ class Modele:
         self.carre.changer_position(new_position)
 
     def verifier_collisions(self):
-       pass
+        return self.collision_bordure() or self.collision_rectangle()
 
-    def collision_mur(self):
-        pass
+
+    def collision_bordure(self):
+        if self.carre.posX < self.border_width or self.carre.posX + self.carre.taille > self.largeur + self.border_width:
+            return True
+
+        if self.carre.posY < self.border_width or self.carre.posY + self.carre.taille > self.hauteur + self.border_width:
+            return True
+        return False
+
+    def collision_rectangle(self):
+        carre_x1 = self.carre.posX
+        carre_x2 = self.carre.posX + self.carre.taille
+        carre_y1 = self.carre.posY
+        carre_y2 = self.carre.posY + self.carre.taille
+        compteur_collision = 0
+
+        for rectangle in self.rectangles:
+            rect_x3 = rectangle.posX
+            rect_x4 = rectangle.posX + rectangle.largeur
+            rect_y3 = rectangle.posY
+            rect_y4 = rectangle.posY + rectangle.hauteur
+            if carre_x2 < rect_x3 or rect_x4 < carre_x1 or carre_y2 < rect_y3 or rect_y4 < carre_y1:
+                compteur_collision+=1
+
+        if compteur_collision == 4:
+            return False
+        return True
 
 

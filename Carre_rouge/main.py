@@ -22,7 +22,8 @@ class Controleur():
 
 
     def terminer_partie(self):
-        pass
+        self.modele.jeu_en_cours = False
+        #timer ...
 
     def creer_session(self):
         # self.nom_session?
@@ -30,17 +31,15 @@ class Controleur():
         pass
 
     def creer_partie(self):
-        # temps debut
         self.modele.reset_position()
 
     def animer_jeu(self):
         self.modele.deplacer_rectangles()
         self.vue.afficher_blocs()
-        #if self.modele.verifier_collisions():
-        self.vue.root.after(50, self.animer_jeu)
-        #else:
-        #timer stop
-        #game over ...
+        if not self.modele.verifier_collisions():
+            self.vue.root.after(50, self.animer_jeu)
+        else:
+            self.terminer_partie()
 
     def changer_position(self, new_position):
         self.modele.changer_position(new_position)

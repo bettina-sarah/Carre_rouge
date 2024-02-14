@@ -23,11 +23,6 @@ class RectangleBleu():
                              "bas-droit": [self.posX + self.largeur, self.posY+ self.hauteur],
                              }
 
-        print("Coin haut-gauche", self.coins["haut-gauche"])
-        print("Coin haut-droit", self.coins["haut-droit"])
-        print("Coin bas-gauche", self.coins["bas-gauche"])
-        print("Coin bas-droit", self.coins["bas-droit"])
-
     # def deplacer_angle(self):
     # self.angle = hp.calcAngle(self.posX, self.posY,self.parent.largeur/2, self.parent.largeur/2)
     # self.posX, self.posY = hp.getAngledPoint(self.angle, self.vitesse, self.posX, self.posY)
@@ -50,15 +45,10 @@ class RectangleBleu():
         self.posY += self.vitesseY
 
     def collision_mur(self):
-        print("coord dict:",self.coins["haut-gauche"][0])
-        print("coord dict:",self.coins["bas-droit"][0])
-        print("coord dict:", self.coins["haut-gauche"][1])
-        print("coord dict:", self.coins["bas-droit"][1])
 
         if self.posX < 0 or self.posX + self.largeur > self.parent.largeur + self.parent.border_width*2:
 
             self.vitesseX*=-1
-            print("frappemur")
 
         if self.posY < 0 or self.posY + self.hauteur > self.parent.hauteur+self.parent.border_width*2:
             self.vitesseY*=-1
