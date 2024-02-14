@@ -28,10 +28,10 @@ class Modele:
 
     def creer_pions(self):
         self.carre = CarreRouge(self)
-        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 5))
-        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, 5, "green"))
-        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, 5))
-        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 5))
+        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 1, 1, "red"))
+        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -1, 1, "green"))
+        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -1,-1, "yellow"))
+        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 1,-1))
         # self.pions.append()
 
     def deplacer_rectangles(self):
@@ -47,9 +47,7 @@ class Modele:
         # position initiale
         pass
 
-    def verifier_collision(self):
-        pass
-
+#    verifier_collisions
 
 
 

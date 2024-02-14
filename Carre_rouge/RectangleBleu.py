@@ -1,16 +1,16 @@
 import random
 from helper import Helper as hp
 class RectangleBleu():
-    def __init__(self, modele, largeur, hauteur, posX, posY, vitesse, couleur="blue"):
+    def __init__(self, modele, largeur, hauteur, posX, posY, vitesseX, vitesseY, couleur="blue"):
         self.parent = modele
         self.largeur = largeur
         self.hauteur = hauteur
-        # self.taille = taille
         self.posX = posX
         self.posY = posY
-        self.vitesse = vitesse
+        self.vitesseX = vitesseX
+        self.vitesseY = vitesseY
         self.acceleration = 0.1
-        self.couleur=couleur
+        self.couleur = couleur
         self.angle = None
         self.destinationX = None
         self.destinationY = None
@@ -26,10 +26,26 @@ class RectangleBleu():
         print("Coin bas-droit", self.dictio_coins["bas-droit"])
 
 
-    def deplacer(self):
-        self.angle = hp.calcAngle(self.posX, self.posY,self.parent.largeur/2, self.parent.largeur/2)
-        self.posX, self.posY = hp.getAngledPoint(self.angle, self.vitesse, self.posX, self.posY)
+# def deplacer_angle(self):
+        # self.angle = hp.calcAngle(self.posX, self.posY,self.parent.largeur/2, self.parent.largeur/2)
+        # self.posX, self.posY = hp.getAngledPoint(self.angle, self.vitesse, self.posX, self.posY)
         # print("new pos: ",self.posX, ", ",self.posY)
+
+    def deplacer(self):
+
+        if self.vitesseX < 0:
+            self.vitesseX += self.acceleration*-1
+        else:
+            self.vitesseX += self.acceleration*1
+
+        if self.vitesseY < 0:
+            self.vitesseY += self.acceleration*-1
+        else:
+            self.vitesseY += self.acceleration*1
+        self.posX += self.vitesseX
+        self.posY += self.vitesseY
+
+
 
     # def trouver_destination(self):
     #     # profs:

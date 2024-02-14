@@ -36,7 +36,11 @@ class Controleur():
     def animer_jeu(self):
         self.modele.deplacer_rectangles()
         self.vue.afficher_blocs()
+        #if self.modele.verifier_collisions():
         self.vue.root.after(50, self.animer_jeu)
+        #else:
+        #timer stop
+        #game over ...
 
     def changer_position(self, new_position):
         self.modele.changer_position(new_position)
