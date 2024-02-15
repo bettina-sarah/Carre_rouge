@@ -26,6 +26,7 @@ class Modele:
         # self.temps_debut.strftime("%M:%S.%f")[:-3]
 
     def creer_pions(self):
+        self.rectangles = []
         self.carre = CarreRouge(self)
         self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4))
         self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4))
