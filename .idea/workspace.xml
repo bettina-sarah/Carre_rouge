@@ -5,15 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3463edf6-b66c-404d-85db-f69fe76f4c3e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Carre_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Carre_rouge.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/Modele.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Modele.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carre_rouge/RectangleBleu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/RectangleBleu.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/Vue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Vue.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/scores.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/scores.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Documents/modif_chiffrier Carre_rouge.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/Documents/modif_chiffrier Carre_rouge.xlsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

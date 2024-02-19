@@ -76,14 +76,12 @@ class Modele:
         return True
 
     def terminer_partie(self):
-        #self.jeu_en_cours = False
+        # self.jeu_en_cours = False
         self.temps_fin = datetime.now()
-        temps_ecoule = self.temps_fin - self.temps_debut
-        self.update_fichier(temps_ecoule)
-
+        self.temps_ecoule = self.temps_fin - self.temps_debut
+        self.update_fichier(self.temps_ecoule)
 
     def update_fichier(self, temps_ecoule):
-
         new_row = [self.joueur, temps_ecoule.total_seconds(), datetime.now().date(), self.difficulte]
         # string = self.joueur + "," + str(temps_ecoule.total_seconds())+","+str(datetime.now().date()) + "," + self.difficulte
         # print(string)
@@ -93,6 +91,10 @@ class Modele:
 
             # Write the new row
             csv_writer.writerow(new_row)
+
+    def get_duree_partie(self):
+        # retourne un string de la durée formatté à 3 decimales
+        return "{:.3f}".format(self.temps_ecoule.total_seconds()) + " secondes"
 
     def obtenir_leaderboard(self):
         # with open(self.csv_file_path, mode='r') as csv_file:

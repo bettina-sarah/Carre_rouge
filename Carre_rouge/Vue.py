@@ -1,3 +1,4 @@
+import tkinter
 import tkinter as tk
 from tkinter import *
 from Modele import *
@@ -26,13 +27,17 @@ class Vue():
 
         # menu principal
         self.menu_principal = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
-                                     bg="aquamarine2")
+                                     bg="red")
 
         titre = Label(self.menu_principal, text="Carré rouge", font="Courier 17 bold", fg="red4", bg="aquamarine2")
         titre.pack()
         credits = Label(self.menu_principal, text="Francois Bouchard\nBettina-Sarah Janesch", font="Courier 13",
                         bg="aquamarine2")
         credits.pack(side=tk.RIGHT)
+
+        duree = Label(self.menu_principal, text="Votre temps: ", font="Courier 13",
+                        bg="blue")
+        duree.pack(side=tk.LEFT)
 
         self.aire_boutons = tk.Frame(self.root, height=300, bg="aquamarine2")
 
@@ -120,6 +125,7 @@ class Vue():
     def terminer_partie(self):
         self.desactiver(None)
         self.nouvelle_partie_btn.config(state=tkinter.ACTIVE)
+        self.activer_fenetre_duree()
         print("fin du jeu")
 
     def toggle_leaderboard(self):
@@ -152,7 +158,7 @@ class Vue():
         pass
 
     def activer_fenetre_duree(self):
-        if self.isActive:
-            # affiche fenetre avec duree de partie (terminé)
-            pass
-        pass
+        self.aire_jeu.create_text(self.modele.largeur/2+self.modele.border_width,
+                                  self.modele.hauteur/2+self.modele.border_width,
+                                  text="Votre temps: "+self.modele.get_duree_partie(),
+                                  font=("Helvetica", 20,))
