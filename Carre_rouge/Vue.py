@@ -165,7 +165,7 @@ class Vue():
                                   command=self.fermer_programme)
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
-       
+
         new_frame = {"quitter": self.frame_quitter}
         self.dict_frames.update(new_frame)
 
