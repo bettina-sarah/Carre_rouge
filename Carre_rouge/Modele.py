@@ -107,18 +107,9 @@ class Modele:
         return "{:.3f}".format(self.temps_ecoule.total_seconds()) + " secondes"
 
     def get_leaderboard(self):
+        self.leaderboard.clear()
         with open(self.csv_file_path, mode='r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
-
-            # for row in csv_reader:
-            #     print(row)
-                # if row[0] == self.joueur:
-                # self.leaderboard.append({
-                #     'Nom': row[0],
-                #     'Score': (row[1]),
-                #     'Date': (row[2]),
-                #     'Difficulté': row[3]
-                # })
 
             for row in csv_reader:
                 ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]

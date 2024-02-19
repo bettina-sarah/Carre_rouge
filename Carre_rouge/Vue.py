@@ -42,7 +42,7 @@ class Vue():
 
         # 1. bouton leaderBoard
         self.leaderboard_btn = Button(self.frame_boutons, text="Leaderboard", font="Courier 10",
-                                      command=lambda : self.afficher_frame("leaderboard") )
+                                      command=self.afficher_leaderboard)
         self.leaderboard_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
                                   anchor='n')  # Align buttons to the left with some padding
 
@@ -66,7 +66,6 @@ class Vue():
         self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
                                bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
         self.aire_jeu.bind("<Button>", self.activer)
-
 
         self.aire_jeu.pack()
         new_frame = {"jeu": self.frame_jeu}
@@ -201,29 +200,34 @@ class Vue():
 
     def nouvelle_partie(self):
         self.aire_jeu.delete("all")
+        self.afficher_frame("jeu")
         self.controleur.nouvelle_partie()
         self.nouvelle_partie_btn.config(state=tkinter.DISABLED)
+        self.leaderboard_btn.config(state=tkinter.DISABLED)
+        # self.nouvelle_partie_btn.config(state=tkinter.DISABLED)
 
     def terminer_partie(self):
         self.desactiver(None)
         self.nouvelle_partie_btn.config(state=tkinter.ACTIVE)
+        self.leaderboard_btn.config(state=tkinter.ACTIVE)
         self.activer_fenetre_duree()
         print("fin du jeu")
 
-    def toggle_leaderboard(self):
-        # toggle le canevas du leaderboard
-        if not self.leaderboard.winfo_ismapped():
-            self.aire_jeu.pack_forget()
-            self.leaderboard.pack()
-            self.leaderboard_btn["text"] = "Retour"
-            self.afficher_leaderboard()
-        else:
-            self.aire_jeu.pack()
-            self.leaderboard.pack_forget()
-            self.leaderboard_btn["text"] = "Leaderboard"
+    # def toggle_leaderboard(self):
+    #     # toggle le canevas du leaderboard
+    #     if not self.leaderboard.winfo_ismapped():
+    #         self.aire_jeu.pack_forget()
+    #         self.leaderboard.pack()
+    #         self.leaderboard_btn["text"] = "Retour"
+    #         self.afficher_leaderboard()
+    #     else:
+    #         self.aire_jeu.pack()
+    #         self.leaderboard.pack_forget()
+    #         self.leaderboard_btn["text"] = "Leaderboard"
 
     def afficher_leaderboard(self):
         self.leaderboard.delete("all")
+        self.afficher_frame("leaderboard")
         leaderboard_tab = self.modele.get_leaderboard()
         for row in range(len(leaderboard_tab)):
             print(row)
