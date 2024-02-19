@@ -112,12 +112,12 @@ class Modele:
             csv_reader = csv.DictReader(csv_file)
 
             for row in csv_reader:
-                ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
-
-                self.leaderboard.append(ligne)
+                if(self.joueur == row["nom"]):
+                    ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
+                    self.leaderboard.append(ligne)
 
         # Sort the leaderboard_data list based on the 'Score' in descending order
-        # self.leaderboard.sort(key=lambda x: x['Score'], reverse=True)
+        #self.leaderboard.sort(key=lambda x: x['temps'], reverse=True)
         return self.leaderboard
 
     def submit_session(self, diff, nom):

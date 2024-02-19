@@ -30,16 +30,17 @@ class Vue():
     def initialiser_frames(self):
         self.window = tk.Frame(self.root, bg="aquamarine2")
 
-        self.creer_frame_boutons_principals()
+
         self.creer_frame_jeu()
         self.creer_frame_leaderboard()
         self.creer_frame_nouvelle_session()
+
         self.window.pack()
         self.afficher_frame("session")
         print(self.dict_frames)
 
-    def creer_frame_boutons_principals(self):
-        self.frame_boutons = tk.Frame(self.window, height=300, bg="aquamarine2")
+    def creer_frame_boutons_jeu(self):
+        self.frame_boutons = tk.Frame(self.frame_jeu, height=300, bg="aquamarine2")
 
         # 1. bouton leaderBoard
         self.leaderboard_btn = Button(self.frame_boutons, text="Leaderboard", font="Courier 10",
@@ -59,14 +60,16 @@ class Vue():
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
         self.frame_boutons.pack()
-        new_frame = {"boutons": self.frame_boutons}
-        self.dict_frames.update(new_frame)
+        # new_frame = {"boutons": self.frame_boutons}
+        # self.dict_frames.update(new_frame)
 
     def creer_frame_jeu(self):
         self.frame_jeu = tk.Frame(self.window, bg="aquamarine2")
         self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
                                bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
         self.aire_jeu.bind("<Button>", self.activer)
+        # ajuote les boutons
+        self.creer_frame_boutons_jeu()
 
         self.aire_jeu.pack()
         new_frame = {"jeu": self.frame_jeu}
@@ -78,38 +81,66 @@ class Vue():
                                   width=self.modele.largeur + self.modele.border_width * 2,
                                   bg="blue")
 
+        self.creer_frame_boutons_leaderboard()
         self.leaderboard.pack()
         new_frame = {"leaderboard": self.frame_leaderboard}
         self.dict_frames.update(new_frame)
 
-    def creer_frame_nouvelle_session(self):
-        nom = ""
-        diff = "facile"
+    def creer_frame_boutons_leaderboard(self):
+        self.frame_boutons_leaderboard = tk.Frame(self.frame_leaderboard, height=300, bg="aquamarine2")
 
+        # 1. bouton leaderBoard
+        self.retour_btn = Button(self.frame_boutons_leaderboard, text="Retour", font="Courier 10",
+                                      command=lambda : self.afficher_frame("jeu"))
+        self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
+                                  anchor='n')  # Align buttons to the left with some padding
+
+        # 2. bouton nouvelle partie
+        self.nouvelle_partie_btn = Button(self.frame_boutons_leaderboard, text="Nouvelle Partie", font="Courier 10",
+                                          command=self.nouvelle_partie)
+        self.nouvelle_partie_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
+                                      anchor='n')  # Align buttons to the left with some padding
+
+        # 3. bouton quitter
+        self.effacer_btn = Button(self.frame_boutons_leaderboard, text="Effacer", font="Courier 10",
+                                  command=self.effacer_leaderboard())
+        self.effacer_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
+                              anchor='n')  # Align buttons to the left with some padding
+        self.frame_boutons_leaderboard.pack()
+
+        # new_frame = {"boutons": self.frame_boutons}
+        # self.dict_frames.update(new_frame)
+
+    def creer_frame_nouvelle_session(self):
+
+        self.diff = tk.StringVar()
+        self.diff.set("facile")
         self.frame_session = tk.Frame(self.window, height=self.modele.hauteur, width=self.modele.hauteur,
                                       bg="aquamarine2")
 
-        radio_facile = tk.Radiobutton(self.frame_session, text="Option 1", variable=diff, value="facile", selec)
+        radio_facile = tk.Radiobutton(self.frame_session, text="Facile", variable=self.diff, value="facile")
         radio_facile.pack()
 
-        radio_moyen = tk.Radiobutton(self.frame_session, text="Option 2", variable=diff, value="moyen")
+        radio_moyen = tk.Radiobutton(self.frame_session, text="Moyen", variable=self.diff, value="moyen")
         radio_moyen.pack()
 
-        radio_difficile = tk.Radiobutton(self.frame_session, text="Option 3", variable=diff, value="difficle")
+        radio_difficile = tk.Radiobutton(self.frame_session, text="Difficile", variable=self.diff, value="difficle")
         radio_difficile.pack()
 
         # permet au joueur d'écrire son nom
-        nom_session = tk.Entry(self.frame_session)
-        nom_session.pack()
+        self.nom_session = tk.Entry(self.frame_session)
+        self.nom_session.pack()
 
         # Bouton pour confirmer le choix du user
-        self.submit_btn = tk.Button(self.frame_session, text="Entrer", command=lambda : self.submit_session(diff, nom))
+        self.submit_btn = tk.Button(self.frame_session, text="Entrer", command=self.submit_session)
         self.submit_btn.pack()
 
         new_frame = {"session": self.frame_session}
         self.dict_frames.update(new_frame)
 
-    def submit_session(self, diff, nom):
+    def submit_session(self):
+        nom = self.nom_session.get()
+        diff = self.diff.get()
         self.controleur.submit_session(diff, nom)
         self.afficher_frame("jeu")
 
@@ -125,51 +156,6 @@ class Vue():
         self.dict_frames[frame].pack()
         self.current_frame = self.dict_frames[frame]
         pass
-
-    def creer_canvas(self):
-        pass
-        # menu principal
-        # self.window = tk.Frame(self.root, bg="aquamarine2")
-
-        # self.menu_principal = Canvas(self.window, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
-        #                              bg="red")
-
-        # titre = Label(self.menu_principal, text="Carré rouge", font="Courier 17 bold", fg="red4", bg="aquamarine2")
-        # titre.pack()
-        # credits = Label(self.menu_principal, text="Francois Bouchard\nBettina-Sarah Janesch", font="Courier 13",
-        #                 bg="aquamarine2")
-        # credits.pack(side=tk.RIGHT)
-
-        # self.aire_boutons = tk.Frame(self.root, height=300, bg="aquamarine2")
-
-        # self.aire_boutons = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
-        #                             bg="aquamarine2")
-
-        # self.frame_jeu = tk.Frame(self.root, height=self.modele.hauteur, width=self.modele.hauteur, bg="aquamarine2")
-
-        # self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
-        #                     bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
-        # self.aire_jeu.bind("<Button>", self.activer)
-
-        # self.nom_session = Label(self.aire_jeu, height=50, width=50, bg="green")
-        # self.nom_session.grid()
-
-        # leaderboard
-        # self.leaderboard = Canvas(self.window, height=self.modele.hauteur, width=self.modele.largeur+self.modele.border_width*2,
-        #                           bg="blue")
-        # # session
-        # self.session = Canvas(self.root, height=self.modele.hauteur, width=self.modele.largeur+self.modele.border_width*2,
-        #                           bg="green", highlightbackground='black', highlightthickness=self.modele.border_width)
-        # # canvas quitter
-        # self.quitter = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
-        #                           bg="purple", highlightbackground='black', highlightthickness=self.modele.border_width)
-        #
-        # self.menu_principal.pack(side=tk.TOP, fill=tk.X)
-        # self.aire_boutons.pack(fill=tk.X, side=tk.TOP, expand=True)
-        # self.window.pack()
-        # self.aire_boutons.pack(fill=tk.X)
-        # self.aire_jeu.pack()
-        # self.frame_jeu.pack()
 
     def creer_carre_rouge(self):
         self.aire_jeu.create_rectangle(self.modele.carre.posX, self.modele.carre.posY,
@@ -243,3 +229,6 @@ class Vue():
                                   self.modele.hauteur / 2 + self.modele.border_width,
                                   text="Votre temps: " + self.modele.get_duree_partie(),
                                   font=("Helvetica", 20,))
+
+    def effacer_leaderboard(self):
+        pass
