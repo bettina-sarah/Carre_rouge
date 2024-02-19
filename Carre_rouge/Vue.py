@@ -20,51 +20,74 @@ class Vue():
         self.leaderboard_btn = None
         self.quitter_btn = None
         self.activeCanvas = None
-        self.creer_canvas()
+
+        self.current_frame = None
+        # self.creer_canvas()
+        # self.creer_boutons()
+        self.initialiser_frames()
+        self.mes_frames = {}
+
+    def initialiser_frames(self):
+        self.window = tk.Frame(self.root, bg="aquamarine2")
+        self.creer_frame_jeu()
         self.creer_boutons()
+        self.window.pack()
+
+    def creer_frame_jeu(self):
+        self.frame_jeu = tk.Frame(self.window, bg="aquamarine2")
+        self.aire_boutons = tk.Frame(self.frame_jeu, height=300, bg="aquamarine2")
+        self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
+                             bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+        self.aire_jeu.bind("<Button>", self.activer)
+        self.frame_jeu.pack()
 
     def creer_canvas(self):
-
+        pass
         # menu principal
-        self.menu_principal = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
-                                     bg="red")
+        #self.window = tk.Frame(self.root, bg="aquamarine2")
 
-        titre = Label(self.menu_principal, text="Carré rouge", font="Courier 17 bold", fg="red4", bg="aquamarine2")
-        titre.pack()
-        credits = Label(self.menu_principal, text="Francois Bouchard\nBettina-Sarah Janesch", font="Courier 13",
-                        bg="aquamarine2")
-        credits.pack(side=tk.RIGHT)
 
-        duree = Label(self.menu_principal, text="Votre temps: ", font="Courier 13",
-                        bg="blue")
-        duree.pack(side=tk.LEFT)
+        # self.menu_principal = Canvas(self.window, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
+        #                              bg="red")
 
-        self.aire_boutons = tk.Frame(self.root, height=300, bg="aquamarine2")
+        # titre = Label(self.menu_principal, text="Carré rouge", font="Courier 17 bold", fg="red4", bg="aquamarine2")
+        # titre.pack()
+        # credits = Label(self.menu_principal, text="Francois Bouchard\nBettina-Sarah Janesch", font="Courier 13",
+        #                 bg="aquamarine2")
+        # credits.pack(side=tk.RIGHT)
+
+        # self.aire_boutons = tk.Frame(self.root, height=300, bg="aquamarine2")
 
         # self.aire_boutons = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
         #                             bg="aquamarine2")
 
-        self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
-                             bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
-        self.aire_jeu.bind("<Button>", self.activer)
+        #self.frame_jeu = tk.Frame(self.root, height=self.modele.hauteur, width=self.modele.hauteur, bg="aquamarine2")
+
+
+        #self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
+        #                     bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+        # self.aire_jeu.bind("<Button>", self.activer)
 
         # self.nom_session = Label(self.aire_jeu, height=50, width=50, bg="green")
         # self.nom_session.grid()
 
         # leaderboard
-        self.leaderboard = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
-                                  bg="blue", highlightbackground='black', highlightthickness=self.modele.border_width)
-        # session
-        self.session = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
-                                  bg="green", highlightbackground='black', highlightthickness=self.modele.border_width)
-        # canvas quitter
-        self.quitter = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
-                                  bg="purple", highlightbackground='black', highlightthickness=self.modele.border_width)
-
-        self.menu_principal.pack(side=tk.TOP, fill=tk.X)
+        # self.leaderboard = Canvas(self.window, height=self.modele.hauteur, width=self.modele.largeur+self.modele.border_width*2,
+        #                           bg="blue")
+        # # session
+        # self.session = Canvas(self.root, height=self.modele.hauteur, width=self.modele.largeur+self.modele.border_width*2,
+        #                           bg="green", highlightbackground='black', highlightthickness=self.modele.border_width)
+        # # canvas quitter
+        # self.quitter = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
+        #                           bg="purple", highlightbackground='black', highlightthickness=self.modele.border_width)
+        #
+        # self.menu_principal.pack(side=tk.TOP, fill=tk.X)
         #self.aire_boutons.pack(fill=tk.X, side=tk.TOP, expand=True)
-        self.aire_boutons.pack(fill=tk.X)
-        self.aire_jeu.pack()
+        # self.window.pack()
+        # self.aire_boutons.pack(fill=tk.X)
+        # self.aire_jeu.pack()
+        # self.frame_jeu.pack()
+
 
     def creer_boutons(self):
         # 1. bouton leaderBoard
