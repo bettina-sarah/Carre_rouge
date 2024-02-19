@@ -82,32 +82,50 @@ class Modele:
         self.update_fichier(self.temps_ecoule)
 
     def update_fichier(self, temps_ecoule):
-        new_row = [self.joueur, temps_ecoule.total_seconds(), datetime.now().date(), self.difficulte]
-        # string = self.joueur + "," + str(temps_ecoule.total_seconds())+","+str(datetime.now().date()) + "," + self.difficulte
-        # print(string)
+        print("update du .csv")
+
+        row = {'nom': self.joueur, 'temps': temps_ecoule.total_seconds(), 'date': datetime.now().date(),
+               'difficulte': self.difficulte}
 
         with open(self.csv_file_path, mode='a', newline='') as csv_file:
             csv_writer = csv.writer(csv_file)
 
-            # Write the new row
-            csv_writer.writerow(new_row)
+            # Specify the CSV file headers
+            nom_headers = ['nom', 'temps', 'date', 'difficulte']
+            # Create a CSV DictWriter
+            csv_writer = csv.DictWriter(csv_file, fieldnames=nom_headers)
+
+            # Si le csv est vide, ajoute les headers
+            if csv_file.tell() == 0:
+                csv_writer.writeheader()
+
+            # ajoute le score de la partie dans une ligne du csv
+            csv_writer.writerow(row)
 
     def get_duree_partie(self):
         # retourne un string de la durée formatté à 3 decimales
         return "{:.3f}".format(self.temps_ecoule.total_seconds()) + " secondes"
 
-    def obtenir_leaderboard(self):
-        # with open(self.csv_file_path, mode='r') as csv_file:
-        #     csv_reader = csv.DictReader(csv_file)
-        #
-        #     for row in csv_reader:
-        #         #if row[0] == self.joueur:
-        #         self.leaderboard.append({
-        #             'Nom': row[0],
-        #             'Score': (row[1]),
-        #             'Date': (row[2]),
-        #             'Difficulté': row[3]
-        #         })
-        # # Sort the leaderboard_data list based on the 'Score' in descending order
+    def get_leaderboard(self):
+        with open(self.csv_file_path, mode='r', newline='') as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+
+            # for row in csv_reader:
+            #     print(row)
+                # if row[0] == self.joueur:
+                # self.leaderboard.append({
+                #     'Nom': row[0],
+                #     'Score': (row[1]),
+                #     'Date': (row[2]),
+                #     'Difficulté': row[3]
+                # })
+
+            for row in csv_reader:
+                ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
+
+                self.leaderboard.append(ligne)
+
+        # Sort the leaderboard_data list based on the 'Score' in descending order
         # self.leaderboard.sort(key=lambda x: x['Score'], reverse=True)
-        pass
+
+        return self.leaderboard

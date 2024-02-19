@@ -134,10 +134,23 @@ class Vue():
             self.aire_jeu.pack_forget()
             self.leaderboard.pack()
             self.leaderboard_btn["text"] = "Retour"
+            self.afficher_leaderboard()
         else:
             self.aire_jeu.pack()
             self.leaderboard.pack_forget()
             self.leaderboard_btn["text"] = "Leaderboard"
+
+
+    def afficher_leaderboard(self):
+        self.leaderboard.delete("all")
+        leaderboard_tab = self.modele.get_leaderboard()
+        for row in range(len(leaderboard_tab)):
+            print(row)
+            self.leaderboard.create_text(self.modele.largeur/2 +self.modele.border_width,
+                                  self.modele.border_width+(row*30)+30,
+                                  text=leaderboard_tab[row],
+                                  font=("Helvetica", 12,))
+
 
     # def toggle_session(self):
     #     # toggle le canevas du leaderboard

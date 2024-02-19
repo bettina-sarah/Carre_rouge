@@ -11,11 +11,6 @@ class CarreRouge():
                              "bas-droit": [self.posX+self.taille, self.posY+self.taille],
                              }
 
-        print("Coin haut-gauche", self.dictio_coins["haut-gauche"])
-        print("Coin haut-droit", self.dictio_coins["haut-droit"])
-        print("Coin bas-gauche", self.dictio_coins["bas-gauche"])
-        print("Coin bas-droit", self.dictio_coins["bas-droit"])
-
     def deplacer(self, new_position):
         x, y = new_position
         self.posX, self.posY = x-self.taille/2, y-self.taille/2
