@@ -3,7 +3,7 @@ from helper import Helper as hp
 
 
 class RectangleBleu():
-    def __init__(self, modele, largeur, hauteur, posX, posY, vitesseX, vitesseY, couleur="blue"):
+    def __init__(self, modele, largeur, hauteur, posX, posY, vitesseX, vitesseY, couleur="blue2"):
         self.parent = modele
         self.largeur = largeur
         self.hauteur = hauteur

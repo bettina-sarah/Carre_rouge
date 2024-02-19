@@ -1,4 +1,4 @@
-import tkinter
+import tkinter as tk
 from tkinter import *
 from Modele import *
 # from Controleur import *
@@ -25,12 +25,20 @@ class Vue():
     def creer_canvas(self):
 
         # menu principal
-        self.menu_principal = Canvas(self.root, height=100, width=self.modele.largeur + (self.modele.border_width * 2),
-                                     bg="pink", )
+        self.menu_principal = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
+                                     bg="aquamarine2")
 
+        titre = Label(self.menu_principal, text="Carré rouge", font="Courier 17 bold", fg="red4", bg="aquamarine2")
+        titre.pack()
+        credits = Label(self.menu_principal, text="Francois Bouchard\nBettina-Sarah Janesch", font="Courier 13",
+                        bg="aquamarine2")
+        credits.pack(side=tk.RIGHT)
 
+        self.aire_boutons = tk.Frame(self.root, height=300, bg="aquamarine2")
 
-        # aire de jeu
+        # self.aire_boutons = Canvas(self.root, height=200, width=self.modele.largeur + (self.modele.border_width * 2),
+        #                             bg="aquamarine2")
+
         self.aire_jeu = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
                              bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
         self.aire_jeu.bind("<Button>", self.activer)
@@ -48,19 +56,24 @@ class Vue():
         self.quitter = Canvas(self.root, height=self.modele.hauteur, width=self.modele.hauteur,
                                   bg="purple", highlightbackground='black', highlightthickness=self.modele.border_width)
 
-        self.menu_principal.pack()
+        self.menu_principal.pack(side=tk.TOP, fill=tk.X)
+        #self.aire_boutons.pack(fill=tk.X, side=tk.TOP, expand=True)
+        self.aire_boutons.pack(fill=tk.X)
         self.aire_jeu.pack()
 
     def creer_boutons(self):
-        # bouton leaderBoard
-        self.leaderboard_btn = Button(self.menu_principal, text="Leaderboard", command=self.toggle_leaderboard)
-        self.leaderboard_btn.pack()
-        # bouton quitter
-        self.quitter_btn = Button(self.menu_principal, text="Quitter", command=self.activer_menu_quitter)
-        self.quitter_btn.pack()
-        # bouton nouvelle partie
-        self.nouvelle_partie_btn = Button(self.menu_principal, text="Nouvelle Partie", command=self.nouvelle_partie)
-        self.nouvelle_partie_btn.pack()
+        # 1. bouton leaderBoard
+        self.leaderboard_btn = Button(self.aire_boutons, text="Leaderboard", font="Courier 10", command=self.toggle_leaderboard)
+        self.leaderboard_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20), anchor='n')  # Align buttons to the left with some padding
+        #pady=(0, 30) = 30 hauteur du bouton
+        # 2. bouton nouvelle partie
+        self.nouvelle_partie_btn = Button(self.aire_boutons, text="Nouvelle Partie", font="Courier 10", command=self.nouvelle_partie)
+        self.nouvelle_partie_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20), anchor='n')  # Align buttons to the left with some padding
+
+        # 3. bouton quitter
+        self.quitter_btn = Button(self.aire_boutons, text="Quitter", font="Courier 10", command=self.activer_menu_quitter)
+        self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20), anchor='n')  # Align buttons to the left with some padding
+
 
     def creer_carre_rouge(self):
         self.aire_jeu.create_rectangle(self.modele.carre.posX, self.modele.carre.posY, self.modele.carre.posX+self.modele.carre.taille,
@@ -76,7 +89,6 @@ class Vue():
 
         if not self.modele.jeu_en_cours:
             self.controleur.commencer_partie()
-
 
     def desactiver(self, evt):
         self.aire_jeu.unbind("<Motion>")

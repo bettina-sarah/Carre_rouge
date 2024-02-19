@@ -2,6 +2,7 @@ from CarreRouge import *
 from RectangleBleu import *
 from datetime import datetime, timedelta
 import csv
+import tkinter as tk
 
 
 class Modele:
@@ -29,10 +30,11 @@ class Modele:
         self.creer_pions()
 
     def creer_pions(self):
+        self.rectangles = []
         self.carre = CarreRouge(self)
-        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4, "red"))
-        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4, "green"))
-        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4, -4, "yellow"))
+        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4))
+        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4))
+        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4, -4))
         self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 4, -4))
 
     def deplacer_rectangles(self):
@@ -78,8 +80,7 @@ class Modele:
         self.temps_fin = datetime.now()
         temps_ecoule = self.temps_fin - self.temps_debut
         self.update_fichier(temps_ecoule)
-        # retire les rectangles de la liste
-        self.rectangles.clear()
+
 
     def update_fichier(self, temps_ecoule):
 
