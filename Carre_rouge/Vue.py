@@ -34,7 +34,7 @@ class Vue():
         self.creer_frame_jeu()
         self.creer_frame_leaderboard()
         self.creer_frame_nouvelle_session()
-
+        self.creer_frame_fenetre_quitter()
         self.window.pack()
         self.afficher_frame("session")
         print(self.dict_frames)
@@ -56,7 +56,7 @@ class Vue():
 
         # 3. bouton quitter
         self.quitter_btn = Button(self.frame_boutons, text="Quitter", font="Courier 10",
-                                  command=self.activer_menu_quitter)
+                                  command=lambda : self.afficher_frame("quitter"))
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
         self.frame_boutons.pack()
@@ -146,7 +146,28 @@ class Vue():
 
 
     def creer_frame_fenetre_quitter(self):
-        pass
+        self.frame_quitter = tk.Frame(self.window, height=300, bg="aquamarine2")
+
+        # 1. bouton retour
+        self.retour_btn = Button(self.frame_quitter, text="Retour", font="Courier 10",
+                                      command=lambda : self.afficher_frame("jeu"))
+        self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
+                                  anchor='n')  # Align buttons to the left with some padding
+
+        # 2. bouton changer_session
+        self.change_session_btn = Button(self.frame_quitter, text="Changer Session", font="Courier 10",
+                                          command=lambda : self.afficher_frame("session"))
+        self.change_session_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
+                                      anchor='n')  # Align buttons to the left with some padding
+
+        # 3. bouton quitter
+        self.quitter_btn = Button(self.frame_quitter, text="Quitter", font="Courier 10",
+                                  command=self.fermer_programme)
+        self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
+                              anchor='n')  # Align buttons to the left with some padding
+       
+        new_frame = {"quitter": self.frame_quitter}
+        self.dict_frames.update(new_frame)
 
     def afficher_frame(self, frame):
         print(frame)
@@ -221,9 +242,6 @@ class Vue():
                                          text=leaderboard_tab[row],
                                          font=("Helvetica", 12,))
 
-    def activer_menu_quitter(self):
-        pass
-
     def activer_fenetre_duree(self):
         self.aire_jeu.create_text(self.modele.largeur / 2 + self.modele.border_width,
                                   self.modele.hauteur / 2 + self.modele.border_width,
@@ -231,4 +249,7 @@ class Vue():
                                   font=("Helvetica", 20,))
 
     def effacer_leaderboard(self):
+        pass
+
+    def fermer_programme(self):
         pass
