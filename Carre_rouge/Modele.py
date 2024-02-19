@@ -79,7 +79,7 @@ class Modele:
         temps_ecoule = self.temps_fin - self.temps_debut
         self.update_fichier(temps_ecoule)
         # retire les rectangles de la liste
-        self.rectangles.clear();
+        self.rectangles.clear()
 
     def update_fichier(self, temps_ecoule):
 

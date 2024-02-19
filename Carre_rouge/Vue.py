@@ -76,7 +76,7 @@ class Vue():
 
         if not self.modele.jeu_en_cours:
             self.controleur.commencer_partie()
-            self.nouvelle_partie_btn.config(state=tkinter.DISABLED)
+
 
     def desactiver(self, evt):
         self.aire_jeu.unbind("<Motion>")
@@ -103,6 +103,7 @@ class Vue():
     def nouvelle_partie(self):
         self.aire_jeu.delete("all")
         self.controleur.nouvelle_partie()
+        self.nouvelle_partie_btn.config(state=tkinter.DISABLED)
 
     def terminer_partie(self):
         self.desactiver(None)
