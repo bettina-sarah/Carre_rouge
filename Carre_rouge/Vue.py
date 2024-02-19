@@ -33,8 +33,9 @@ class Vue():
         self.creer_frame_boutons_principals()
         self.creer_frame_jeu()
         self.creer_frame_leaderboard()
+        self.creer_frame_nouvelle_session()
         self.window.pack()
-        self.afficher_frame("jeu")
+        self.afficher_frame("session")
         print(self.dict_frames)
 
     def creer_frame_boutons_principals(self):
@@ -82,7 +83,36 @@ class Vue():
         self.dict_frames.update(new_frame)
 
     def creer_frame_nouvelle_session(self):
-        pass
+        nom = ""
+        diff = "facile"
+
+        self.frame_session = tk.Frame(self.window, height=self.modele.hauteur, width=self.modele.hauteur,
+                                      bg="aquamarine2")
+
+        radio_facile = tk.Radiobutton(self.frame_session, text="Option 1", variable=diff, value="facile", selec)
+        radio_facile.pack()
+
+        radio_moyen = tk.Radiobutton(self.frame_session, text="Option 2", variable=diff, value="moyen")
+        radio_moyen.pack()
+
+        radio_difficile = tk.Radiobutton(self.frame_session, text="Option 3", variable=diff, value="difficle")
+        radio_difficile.pack()
+
+        # permet au joueur d'écrire son nom
+        nom_session = tk.Entry(self.frame_session)
+        nom_session.pack()
+
+        # Bouton pour confirmer le choix du user
+        self.submit_btn = tk.Button(self.frame_session, text="Entrer", command=lambda : self.submit_session(diff, nom))
+        self.submit_btn.pack()
+
+        new_frame = {"session": self.frame_session}
+        self.dict_frames.update(new_frame)
+
+    def submit_session(self, diff, nom):
+        self.controleur.submit_session(diff, nom)
+        self.afficher_frame("jeu")
+
 
     def creer_frame_fenetre_quitter(self):
         pass
@@ -141,25 +171,6 @@ class Vue():
         # self.aire_jeu.pack()
         # self.frame_jeu.pack()
 
-    # def creer_boutons(self):
-    #     # 1. bouton leaderBoard
-    #     self.leaderboard_btn = Button(self.frame_boutons, text="Leaderboard", font="Courier 10",
-    #                                   command=self.toggle_leaderboard)
-    #     self.leaderboard_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
-    #                               anchor='n')  # Align buttons to the left with some padding
-    #     # pady=(0, 30) = 30 hauteur du bouton
-    #     # 2. bouton nouvelle partie
-    #     self.nouvelle_partie_btn = Button(self.frame_boutons, text="Nouvelle Partie", font="Courier 10",
-    #                                       command=self.nouvelle_partie)
-    #     self.nouvelle_partie_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
-    #                                   anchor='n')  # Align buttons to the left with some padding
-    #
-    #     # 3. bouton quitter
-    #     self.quitter_btn = Button(self.frame_boutons, text="Quitter", font="Courier 10",
-    #                               command=self.activer_menu_quitter)
-    #     self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
-    #                           anchor='n')  # Align buttons to the left with some padding
-
     def creer_carre_rouge(self):
         self.aire_jeu.create_rectangle(self.modele.carre.posX, self.modele.carre.posY,
                                        self.modele.carre.posX + self.modele.carre.taille,
@@ -213,18 +224,6 @@ class Vue():
         self.activer_fenetre_duree()
         print("fin du jeu")
 
-    # def toggle_leaderboard(self):
-    #     # toggle le canevas du leaderboard
-    #     if not self.leaderboard.winfo_ismapped():
-    #         self.aire_jeu.pack_forget()
-    #         self.leaderboard.pack()
-    #         self.leaderboard_btn["text"] = "Retour"
-    #         self.afficher_leaderboard()
-    #     else:
-    #         self.aire_jeu.pack()
-    #         self.leaderboard.pack_forget()
-    #         self.leaderboard_btn["text"] = "Leaderboard"
-
     def afficher_leaderboard(self):
         self.leaderboard.delete("all")
         self.afficher_frame("leaderboard")
@@ -236,21 +235,7 @@ class Vue():
                                          text=leaderboard_tab[row],
                                          font=("Helvetica", 12,))
 
-    # def toggle_session(self):
-    #     # toggle le canevas du leaderboard
-    #     if not self.leaderboard.winfo_ismapped():
-    #         self.activeCanvas.pack_forget()
-    #         self.leaderboard.pack()
-    #         self.leaderboard_btn["text"] = "Retour"
-    #     else:
-    #         self.aire_jeu.pack()
-    #         self.leaderboard.pack_forget()
-    #         self.leaderboard_btn["text"] = "Leaderboard"
-
     def activer_menu_quitter(self):
-        if self.isActive:
-            # affiche fenetre quitter, active bouton quitter, changement session, annuler
-            pass
         pass
 
     def activer_fenetre_duree(self):

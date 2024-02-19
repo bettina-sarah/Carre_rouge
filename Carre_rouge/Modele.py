@@ -118,5 +118,10 @@ class Modele:
 
         # Sort the leaderboard_data list based on the 'Score' in descending order
         # self.leaderboard.sort(key=lambda x: x['Score'], reverse=True)
-
         return self.leaderboard
+
+    def submit_session(self, diff, nom):
+        self.difficulte = diff
+        self.joueur = nom
+
+

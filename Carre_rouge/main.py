@@ -44,6 +44,9 @@ class Controleur():
     def changer_position(self, new_position):
         self.modele.changer_position(new_position)
 
+    def submit_session(self, diff, nom):
+        self.modele.submit_session(diff, nom)
+
 
 if __name__ == "__main__":
     c = Controleur()
