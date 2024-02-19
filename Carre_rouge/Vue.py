@@ -69,8 +69,9 @@ class Vue():
 
     def activer(self, evt):
         mestags = self.aire_jeu.gettags("current")
+        print("jeu en cours: ",self.modele.jeu_en_cours)
         if "carre_rouge" in mestags:
-            self.aire_jeu.bind("<Motion>", self.bouger_carre_rouge)
+            self.aire_jeu.bind("<Motion>", self.deplacer_carre)
             self.aire_jeu.bind("<ButtonRelease>", self.desactiver)
 
         if not self.modele.jeu_en_cours:
@@ -81,20 +82,20 @@ class Vue():
         self.aire_jeu.unbind("<Motion>")
         self.aire_jeu.unbind("<ButtonRelease>")
 
-    def bouger_carre_rouge(self, evt):
+    def deplacer_carre(self, evt):
         self.controleur.changer_position((evt.x, evt.y))
 
     def animer(self):
         self.controleur.animer_jeu()
         print("animer-vue")
 
-    def afficher_blocs(self):
+    def afficher_pions(self):
         self.aire_jeu.delete("all")
         for i in self.modele.rectangles:
             self.aire_jeu.create_rectangle(i.posX, i.posY,
                                          i.posX + i.largeur, i.posY + i.hauteur, fill=i.couleur,
                                          tags=("bloc",)) #tuple
-            print("new pos: ", i.posX, ", ", i.posY)
+            # print("new pos: ", i.posX, ", ", i.posY)
 
         self.creer_carre_rouge()
 
@@ -102,6 +103,11 @@ class Vue():
     def nouvelle_partie(self):
         self.aire_jeu.delete("all")
         self.controleur.nouvelle_partie()
+
+    def terminer_partie(self):
+        self.desactiver(None)
+        self.nouvelle_partie_btn.config(state=tkinter.ACTIVE)
+        print("fin du jeu")
 
     def toggle_leaderboard(self):
         # toggle le canevas du leaderboard

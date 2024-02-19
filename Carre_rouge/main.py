@@ -3,6 +3,7 @@ import datetime
 import Vue as v
 import Modele as mod
 
+
 class Controleur():
     def __init__(self):
         self.modele = mod.Modele(self)
@@ -11,17 +12,18 @@ class Controleur():
         self.temps_fin = None
 
     def nouvelle_partie(self):
-        self.modele.creer_pions()
-        self.vue.afficher_blocs()
+        self.modele.nouvelle_partie()
+        self.vue.afficher_pions()
+
 
     def commencer_partie(self):
         self.modele.commencer_partie()
         self.animer_jeu()
 
-
     def terminer_partie(self):
         self.modele.terminer_partie()
-      #  self.vue.afficher_fenetre_duree()
+        self.vue.terminer_partie()
+    #  self.vue.afficher_fenetre_duree()
 
     def creer_session(self):
         # self.nom_session?
@@ -33,7 +35,7 @@ class Controleur():
 
     def animer_jeu(self):
         self.modele.deplacer_rectangles()
-        self.vue.afficher_blocs()
+        self.vue.afficher_pions()
         if not self.modele.verifier_collisions():
             self.vue.root.after(50, self.animer_jeu)
         else:
@@ -41,6 +43,7 @@ class Controleur():
 
     def changer_position(self, new_position):
         self.modele.changer_position(new_position)
+
 
 if __name__ == "__main__":
     c = Controleur()

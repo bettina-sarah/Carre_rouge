@@ -16,7 +16,7 @@ class CarreRouge():
         print("Coin bas-gauche", self.dictio_coins["bas-gauche"])
         print("Coin bas-droit", self.dictio_coins["bas-droit"])
 
-    def changer_position(self, new_position):
+    def deplacer(self, new_position):
         x, y = new_position
         self.posX, self.posY = x-self.taille/2, y-self.taille/2
         #print("nouvelle:", self.posX, self.posY)

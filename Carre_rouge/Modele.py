@@ -24,6 +24,10 @@ class Modele:
         self.temps_debut = datetime.now()
         # self.temps_debut.strftime("%M:%S.%f")[:-3]
 
+    def nouvelle_partie(self):
+        self.jeu_en_cours = False
+        self.creer_pions()
+
     def creer_pions(self):
         self.carre = CarreRouge(self)
         self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4, "red"))
@@ -37,7 +41,7 @@ class Modele:
             rectangle.deplacer()
 
     def changer_position(self, new_position):
-        self.carre.changer_position(new_position)
+        self.carre.deplacer(new_position)
 
     def verifier_collisions(self):
         return self.collision_bordure() or self.collision_rectangle()
@@ -70,10 +74,12 @@ class Modele:
         return True
 
     def terminer_partie(self):
-        self.jeu_en_cours = False
+        #self.jeu_en_cours = False
         self.temps_fin = datetime.now()
         temps_ecoule = self.temps_fin - self.temps_debut
         self.update_fichier(temps_ecoule)
+        # retire les rectangles de la liste
+        self.rectangles.clear();
 
     def update_fichier(self, temps_ecoule):
 
