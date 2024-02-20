@@ -30,7 +30,6 @@ class Vue():
     def initialiser_frames(self):
         self.window = tk.Frame(self.root, bg="aquamarine2")
 
-
         self.creer_frame_jeu()
         self.creer_frame_leaderboard()
         self.creer_frame_nouvelle_session()
@@ -38,6 +37,18 @@ class Vue():
         self.window.pack()
         self.afficher_frame("session")
         print(self.dict_frames)
+
+    def creer_frame_jeu(self):
+        self.frame_jeu = tk.Frame(self.window, bg="aquamarine2")
+        self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
+                               bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
+        self.aire_jeu.bind("<Button>", self.activer)
+        # ajuote les boutons
+        self.creer_frame_boutons_jeu()
+
+        self.aire_jeu.pack()
+        new_frame = {"jeu": self.frame_jeu}
+        self.dict_frames.update(new_frame)
 
     def creer_frame_boutons_jeu(self):
         self.frame_boutons = tk.Frame(self.frame_jeu, height=300, bg="aquamarine2")
@@ -56,30 +67,18 @@ class Vue():
 
         # 3. bouton quitter
         self.quitter_btn = Button(self.frame_boutons, text="Quitter", font="Courier 10",
-                                  command=lambda : self.afficher_frame("quitter"))
+                                  command=lambda: self.afficher_frame("quitter"))
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
         self.frame_boutons.pack()
         # new_frame = {"boutons": self.frame_boutons}
         # self.dict_frames.update(new_frame)
 
-    def creer_frame_jeu(self):
-        self.frame_jeu = tk.Frame(self.window, bg="aquamarine2")
-        self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
-                               bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
-        self.aire_jeu.bind("<Button>", self.activer)
-        # ajuote les boutons
-        self.creer_frame_boutons_jeu()
-
-        self.aire_jeu.pack()
-        new_frame = {"jeu": self.frame_jeu}
-        self.dict_frames.update(new_frame)
-
     def creer_frame_leaderboard(self):
         self.frame_leaderboard = tk.Frame(self.window, bg="aquamarine2")
         self.leaderboard = Canvas(self.frame_leaderboard, height=self.modele.hauteur,
                                   width=self.modele.largeur + self.modele.border_width * 2,
-                                  bg="blue")
+                                  bg="thistle")
 
         self.creer_frame_boutons_leaderboard()
         self.leaderboard.pack()
@@ -91,9 +90,9 @@ class Vue():
 
         # 1. bouton leaderBoard
         self.retour_btn = Button(self.frame_boutons_leaderboard, text="Retour", font="Courier 10",
-                                      command=lambda : self.afficher_frame("jeu"))
+                                 command=lambda: self.afficher_frame("jeu"))
         self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
-                                  anchor='n')  # Align buttons to the left with some padding
+                             anchor='n')  # Align buttons to the left with some padding
 
         # 2. bouton nouvelle partie
         self.nouvelle_partie_btn = Button(self.frame_boutons_leaderboard, text="Nouvelle Partie", font="Courier 10",
@@ -144,21 +143,20 @@ class Vue():
         self.controleur.submit_session(diff, nom)
         self.afficher_frame("jeu")
 
-
     def creer_frame_fenetre_quitter(self):
         self.frame_quitter = tk.Frame(self.window, height=300, bg="aquamarine2")
 
         # 1. bouton retour
         self.retour_btn = Button(self.frame_quitter, text="Retour", font="Courier 10",
-                                      command=lambda : self.afficher_frame("jeu"))
+                                 command=lambda: self.afficher_frame("jeu"))
         self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
-                                  anchor='n')  # Align buttons to the left with some padding
+                             anchor='n')  # Align buttons to the left with some padding
 
         # 2. bouton changer_session
         self.change_session_btn = Button(self.frame_quitter, text="Changer Session", font="Courier 10",
-                                          command=lambda : self.afficher_frame("session"))
+                                         command=lambda: self.afficher_frame("session"))
         self.change_session_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
-                                      anchor='n')  # Align buttons to the left with some padding
+                                     anchor='n')  # Align buttons to the left with some padding
 
         # 3. bouton quitter
         self.quitter_btn = Button(self.frame_quitter, text="Quitter", font="Courier 10",
@@ -234,12 +232,20 @@ class Vue():
     def afficher_leaderboard(self):
         self.leaderboard.delete("all")
         self.afficher_frame("leaderboard")
+
+        self.leaderboard.create_text(self.modele.largeur / 2 + self.modele.border_width,
+                                     self.modele.border_width + 40, text="\nLEADERBOARD\n\n\n\n",
+                                     font=("Helvetica", 22))
+
+
         leaderboard_tab = self.modele.get_leaderboard()
-        for row in range(len(leaderboard_tab)):
-            print(row)
+        for i, row in enumerate(leaderboard_tab):       #range(len(leaderboard_tab)):
+            display_text = f"{i + 1}. Date: {row['date']} - Temps: {row['temps']} seconds - Difficulté: {row['difficulte']}"
+            y_coordinate = self.modele.border_width + (i * 30) + 30 #hauteur ligne
+
             self.leaderboard.create_text(self.modele.largeur / 2 + self.modele.border_width,
-                                         self.modele.border_width + (row * 30) + 30,
-                                         text=leaderboard_tab[row],
+                                         y_coordinate,
+                                         text=display_text,
                                          font=("Helvetica", 12,))
 
     def activer_fenetre_duree(self):

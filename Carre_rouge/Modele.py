@@ -111,13 +111,19 @@ class Modele:
         with open(self.csv_file_path, mode='r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
 
+
             for row in csv_reader:
-                if(self.joueur == row["nom"]):
-                    ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
+                if self.joueur == row["nom"]:
+                    ligne = {
+                        "date": row["date"],
+                        "temps": row["temps"],
+                        "difficulte": row["difficulte"]
+                    }
+                    #ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
                     self.leaderboard.append(ligne)
 
-        # Sort the leaderboard_data list based on the 'Score' in descending order
-        #self.leaderboard.sort(key=lambda x: x['temps'], reverse=True)
+        # trier ici marche car chaque ligne est un entrée de dictionnaire et pas un string
+        self.leaderboard.sort(key=lambda x: x['temps'], reverse=True)
         return self.leaderboard
 
     def submit_session(self, diff, nom):
