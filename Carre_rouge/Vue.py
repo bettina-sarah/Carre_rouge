@@ -22,8 +22,7 @@ class Vue():
         self.quitter_btn = None
         self.activeCanvas = None
         self.current_frame = None
-        # self.creer_canvas()
-        # self.creer_boutons()
+
         self.dict_frames = {}
         self.initialiser_frames()
 
@@ -262,4 +261,5 @@ class Vue():
 
 
     def fermer_programme(self):
+        self.root.destroy()
         pass
