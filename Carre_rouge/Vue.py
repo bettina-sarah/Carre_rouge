@@ -185,13 +185,12 @@ class Vue():
 
     def activer(self, evt):
         mestags = self.aire_jeu.gettags("current")
-        print("jeu en cours: ", self.modele.jeu_en_cours)
+        print("jeu en cours: ", mestags)
         if "carre_rouge" in mestags:
             self.aire_jeu.bind("<Motion>", self.deplacer_carre)
             self.aire_jeu.bind("<ButtonRelease>", self.desactiver)
-
-        if not self.modele.jeu_en_cours:
-            self.controleur.commencer_partie()
+            if not self.modele.jeu_en_cours:
+                self.controleur.commencer_partie()
 
     def desactiver(self, evt):
         self.aire_jeu.unbind("<Motion>")

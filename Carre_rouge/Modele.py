@@ -114,10 +114,10 @@ class Modele:
                 if self.joueur == row["nom"]:
                     ligne = {
                         "date": row["date"],
-                        "temps": row["temps"],
+                        "temps": float(row["temps"]),
                         "difficulte": row["difficulte"]
                     }
-                    #ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
+                    # ligne = row["date"] + " --- " + row["temps"] + " --- " + row["difficulte"]
                     self.leaderboard.append(ligne)
 
         # trier ici marche car chaque ligne est un entrée de dictionnaire et pas un string
@@ -126,7 +126,6 @@ class Modele:
 
     def effacer_leaderboard(self):
         # probleme: ecrase tout
-
         self.leaderboard.clear()
 
         with open(self.csv_file_path, mode='r', newline='') as csv_file:
@@ -142,5 +141,3 @@ class Modele:
     def submit_session(self, diff, nom):
         self.difficulte = diff
         self.joueur = nom
-
-
