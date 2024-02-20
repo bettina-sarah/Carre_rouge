@@ -102,7 +102,7 @@ class Vue():
 
         # 3. bouton quitter
         self.effacer_btn = Button(self.frame_boutons_leaderboard, text="Effacer", font="Courier 10",
-                                  command=self.effacer_leaderboard())
+                                  command=self.effacer_leaderboard)
         self.effacer_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
         self.frame_boutons_leaderboard.pack()
@@ -248,14 +248,19 @@ class Vue():
                                          text=display_text,
                                          font=("Helvetica", 12,))
 
+    def effacer_leaderboard(self):
+        print("vue effacer leaderboard")
+        self.modele.effacer_leaderboard()
+        #re-afficher vide apres effacer
+        self.afficher_leaderboard()
+
+
     def activer_fenetre_duree(self):
         self.aire_jeu.create_text(self.modele.largeur / 2 + self.modele.border_width,
                                   self.modele.hauteur / 2 + self.modele.border_width,
                                   text="Votre temps: " + self.modele.get_duree_partie(),
                                   font=("Helvetica", 20,))
 
-    def effacer_leaderboard(self):
-        pass
 
     def fermer_programme(self):
         pass

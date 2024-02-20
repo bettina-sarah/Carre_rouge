@@ -110,8 +110,6 @@ class Modele:
         self.leaderboard.clear()
         with open(self.csv_file_path, mode='r', newline='') as csv_file:
             csv_reader = csv.DictReader(csv_file)
-
-
             for row in csv_reader:
                 if self.joueur == row["nom"]:
                     ligne = {
@@ -125,6 +123,21 @@ class Modele:
         # trier ici marche car chaque ligne est un entrée de dictionnaire et pas un string
         self.leaderboard.sort(key=lambda x: x['temps'], reverse=True)
         return self.leaderboard
+
+    def effacer_leaderboard(self):
+        # probleme: ecrase tout
+
+        self.leaderboard.clear()
+
+        with open(self.csv_file_path, mode='r', newline='') as csv_file:
+            rows = list(csv.reader(csv_file))
+            # garder seulement 1ere ligne avec noms colonnes
+
+            first_row = rows[0]
+        # on ecrase le csv
+        with open(self.csv_file_path, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(first_row)
 
     def submit_session(self, diff, nom):
         self.difficulte = diff
