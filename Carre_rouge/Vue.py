@@ -27,7 +27,7 @@ class Vue():
         self.initialiser_frames()
 
     def initialiser_frames(self):
-        self.window = tk.Frame(self.root, bg="aquamarine2")
+        self.window = tk.Frame(self.root, bg="mediumaquamarine")
 
         self.creer_frame_jeu()
         self.creer_frame_leaderboard()
@@ -38,7 +38,7 @@ class Vue():
         print(self.dict_frames)
 
     def creer_frame_jeu(self):
-        self.frame_jeu = tk.Frame(self.window, bg="aquamarine2")
+        self.frame_jeu = tk.Frame(self.window, bg="mediumaquamarine")
         self.aire_jeu = Canvas(self.frame_jeu, height=self.modele.hauteur, width=self.modele.hauteur,
                                bg="white", highlightbackground='black', highlightthickness=self.modele.border_width)
         self.aire_jeu.bind("<Button>", self.activer)
@@ -50,22 +50,25 @@ class Vue():
         self.dict_frames.update(new_frame)
 
     def creer_frame_boutons_jeu(self):
-        self.frame_boutons = tk.Frame(self.frame_jeu, height=300, bg="aquamarine2")
+        self.frame_boutons = tk.Frame(self.frame_jeu, height=300, bg="mediumaquamarine")
 
         # 1. bouton leaderBoard
         self.leaderboard_btn = Button(self.frame_boutons, text="Leaderboard", font="Courier 10",
+                                      bg="lightseagreen",
                                       command=self.afficher_leaderboard)
         self.leaderboard_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
                                   anchor='n')  # Align buttons to the left with some padding
 
         # 2. bouton nouvelle partie
         self.nouvelle_partie_btn = Button(self.frame_boutons, text="Nouvelle Partie", font="Courier 10",
+                                          bg="lightseagreen",
                                           command=self.nouvelle_partie)
         self.nouvelle_partie_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
                                       anchor='n')  # Align buttons to the left with some padding
 
         # 3. bouton quitter
         self.quitter_btn = Button(self.frame_boutons, text="Quitter", font="Courier 10",
+                                  bg="lightseagreen",
                                   command=lambda: self.afficher_frame("quitter"))
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
@@ -74,7 +77,7 @@ class Vue():
         # self.dict_frames.update(new_frame)
 
     def creer_frame_leaderboard(self):
-        self.frame_leaderboard = tk.Frame(self.window, bg="aquamarine2")
+        self.frame_leaderboard = tk.Frame(self.window, bg="mediumaquamarine")
         self.leaderboard = Canvas(self.frame_leaderboard, height=self.modele.hauteur,
                                   width=self.modele.largeur + self.modele.border_width * 2,
                                   bg="thistle")
@@ -85,22 +88,24 @@ class Vue():
         self.dict_frames.update(new_frame)
 
     def creer_frame_boutons_leaderboard(self):
-        self.frame_boutons_leaderboard = tk.Frame(self.frame_leaderboard, height=300, bg="aquamarine2")
+        self.frame_boutons_leaderboard = tk.Frame(self.frame_leaderboard, height=300, bg="mediumaquamarine")
 
         # 1. bouton leaderBoard
-        self.retour_btn = Button(self.frame_boutons_leaderboard, text="Retour", font="Courier 10",
+        self.retour_btn = Button(self.frame_boutons_leaderboard, text="Retour", font="Courier 10", bg="lightseagreen",
                                  command=lambda: self.afficher_frame("jeu"))
         self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
                              anchor='n')  # Align buttons to the left with some padding
 
         # 2. bouton nouvelle partie
         self.nouvelle_partie_btn = Button(self.frame_boutons_leaderboard, text="Nouvelle Partie", font="Courier 10",
+                                          bg="lightseagreen",
                                           command=self.nouvelle_partie)
         self.nouvelle_partie_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
                                       anchor='n')  # Align buttons to the left with some padding
 
         # 3. bouton quitter
         self.effacer_btn = Button(self.frame_boutons_leaderboard, text="Effacer", font="Courier 10",
+                                  bg="lightseagreen",
                                   command=self.effacer_leaderboard)
         self.effacer_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding
@@ -114,15 +119,21 @@ class Vue():
         self.diff = tk.StringVar()
         self.diff.set("facile")
         self.frame_session = tk.Frame(self.window, height=self.modele.hauteur, width=self.modele.hauteur,
-                                      bg="aquamarine2")
+                                      bg="mediumaquamarine", padx=20, pady=20)
+        self.titre = tk.Label(self.frame_session, bg="mediumaquamarine", text="Carré rouge",
+                              font="Courier 22 bold", width=20, height=5)
+        self.titre.pack()
 
-        radio_facile = tk.Radiobutton(self.frame_session, text="Facile", variable=self.diff, value="facile")
+        radio_facile = tk.Radiobutton(self.frame_session, text="Facile", variable=self.diff, value="facile",
+                                      padx=10, pady=10, bg="mediumaquamarine")
         radio_facile.pack()
 
-        radio_moyen = tk.Radiobutton(self.frame_session, text="Moyen", variable=self.diff, value="moyen")
+        radio_moyen = tk.Radiobutton(self.frame_session, text="Moyen", variable=self.diff, value="moyen",
+                                     padx=10, pady=10, bg="mediumaquamarine")
         radio_moyen.pack()
 
-        radio_difficile = tk.Radiobutton(self.frame_session, text="Difficile", variable=self.diff, value="difficle")
+        radio_difficile = tk.Radiobutton(self.frame_session, text="Difficile", variable=self.diff, value="difficile",
+                                         padx=10, pady=10, bg="mediumaquamarine")
         radio_difficile.pack()
 
         # permet au joueur d'écrire son nom
@@ -130,7 +141,8 @@ class Vue():
         self.nom_session.pack()
 
         # Bouton pour confirmer le choix du user
-        self.submit_btn = tk.Button(self.frame_session, text="Entrer", command=self.submit_session)
+        self.submit_btn = tk.Button(self.frame_session, text="Entrer", command=self.submit_session,
+                                    padx=10, pady=10, bg="lightseagreen")
         self.submit_btn.pack()
 
         new_frame = {"session": self.frame_session}
@@ -140,25 +152,30 @@ class Vue():
         nom = self.nom_session.get()
         diff = self.diff.get()
         self.controleur.submit_session(diff, nom)
+        self.aire_jeu.delete("all")
         self.afficher_frame("jeu")
 
     def creer_frame_fenetre_quitter(self):
-        self.frame_quitter = tk.Frame(self.window, height=300, bg="aquamarine2")
+        self.frame_quitter = tk.Frame(self.window, height=300, bg="mediumaquamarine")
 
         # 1. bouton retour
-        self.retour_btn = Button(self.frame_quitter, text="Retour", font="Courier 10",
+        self.retour_btn = Button(self.frame_quitter, text="Retour", font="Courier 10", bg="lightseagreen",
                                  command=lambda: self.afficher_frame("jeu"))
         self.retour_btn.pack(side=tk.LEFT, padx=10, pady=(20, 20),
                              anchor='n')  # Align buttons to the left with some padding
 
         # 2. bouton changer_session
         self.change_session_btn = Button(self.frame_quitter, text="Changer Session", font="Courier 10",
+                                         bg="lightseagreen",
                                          command=lambda: self.afficher_frame("session"))
+
+        # lambda: fonc anonyme qui perment de pas executer asap avec () avec parametre.
+        # solution alternativr: fonc a part ou tu call la fonc avec ()
         self.change_session_btn.pack(side=tk.LEFT, padx=100, pady=(20, 20),
                                      anchor='n')  # Align buttons to the left with some padding
 
         # 3. bouton quitter
-        self.quitter_btn = Button(self.frame_quitter, text="Quitter", font="Courier 10",
+        self.quitter_btn = Button(self.frame_quitter, text="Quitter", font="Courier 10", bg="lightseagreen",
                                   command=self.fermer_programme)
         self.quitter_btn.pack(side=tk.RIGHT, padx=10, pady=(20, 20),
                               anchor='n')  # Align buttons to the left with some padding

@@ -19,6 +19,12 @@ class Modele:
         self.difficulte = "facile"
         self.leaderboard = []
         self.csv_file_path = "scores.csv"
+        self.dict_acc = {"facile": 0.1,
+                        "moyen": 0.3,
+                        "difficile": 0.5}
+        self.dict_coul = {"facile": "blue2",
+                         "moyen": "chartreuse",
+                         "difficile": "magenta"}
 
     def commencer_partie(self):
         self.jeu_en_cours = True
@@ -32,10 +38,14 @@ class Modele:
     def creer_pions(self):
         self.rectangles = []
         self.carre = CarreRouge(self)
-        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4))
-        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4))
-        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4, -4))
-        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 4, -4))
+        self.rectangles.append(RectangleBleu(self, 60, 60, 100, 100, 4, 4,
+                                             self.dict_acc[self.difficulte], self.dict_coul[self.difficulte]))
+        self.rectangles.append(RectangleBleu(self, 60, 50, 300, 85, -4, 4,
+                                             self.dict_acc[self.difficulte], self.dict_coul[self.difficulte]))
+        self.rectangles.append(RectangleBleu(self, 100, 20, 355, 340, -4, -4,
+                                             self.dict_acc[self.difficulte], self.dict_coul[self.difficulte]))
+        self.rectangles.append(RectangleBleu(self, 30, 60, 85, 350, 4, -4,
+                                             self.dict_acc[self.difficulte], self.dict_coul[self.difficulte]))
 
     def deplacer_rectangles(self):
         # dans les pions a place?
