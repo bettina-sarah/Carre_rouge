@@ -8,9 +8,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/Carre_rouge.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Carre_rouge.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carre_rouge/Modele.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Modele.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carre_rouge/RectangleBleu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/RectangleBleu.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Carre_rouge/Vue.py" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/Vue.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Carre_rouge/scores.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Carre_rouge/scores.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -53,7 +50,9 @@
   "keyToString": {
     "Python.main (1).executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "last_opened_file_path": "C:/coding/Carre_rouge"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "E:/Repos/TD_Test/C31_TD_Test/TD_test"
   }
 }]]></component>
   <component name="RunManager" selected="Python.main (1)">
